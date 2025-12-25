@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi người anh thương 💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-pink: #ff6b93;
+            --light-pink: #ffe6ed;
+            --dark-pink: #d94a73;
+            --rose-gold: #e8b4b8;
+            --text-dark: #5a4a4a;
+            --text-light: #8a7d7d;
+            --white: #fff;
+            --shadow: rgba(255, 107, 147, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--light-pink);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        /* Header/Navigation */
+        .floating-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-pink);
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-pink);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section 1: Landing */
+        #landing {
+            background: linear-gradient(135deg, var(--light-pink) 0%, #fff 100%);
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-text {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            min-height: 60px;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.8rem;
+            background-color: var(--primary-pink);
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        .scroll-indicator {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-light);
+            animation: bounce 2s infinite;
+        }
+
+        /* Section 2: Memories */
+        #memories {
+            background-color: var(--white);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-pink);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--rose-gold);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .memory-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .photo-frame {
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transform: rotate(-2deg);
+            transition: transform 0.5s;
+            max-width: 350px;
+            border: 8px solid white;
+            position: relative;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary-pink), var(--rose-gold));
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0.3;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .photo-caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Section 3: Message */
+        #message-sec {
+            background: linear-gradient(135deg, #fff 0%, var(--light-pink) 100%);
+        }
+
+        .message-box {
+            max-width: 800px;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px var(--shadow);
+            position: relative;
+            border-left: 8px solid var(--primary-pink);
+        }
+
+        .message-box::before {
+            content: "“";
+            position: absolute;
+            top: -30px;
+            left: 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            color: var(--rose-gold);
+            opacity: 0.3;
+        }
+
+        .message-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: center;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--primary-pink);
+        }
+
+        /* Section 4: Question */
+        #question {
+            background-color: var(--white);
+            min-height: 80vh;
+        }
+
+        .question-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .heart-icon {
+            font-size: 4rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .question-text {
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: var(--white);
+        }
+
+        #yesBtn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(255, 107, 147, 0.4);
+        }
+
+        #noBtn {
+            background: #f0f0f0;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        #noBtn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Animations */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1 }
+            50% { opacity: 0 }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) }
+            40% { transform: translateY(-20px) }
+            60% { transform: translateY(-10px) }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .typing-text {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .message-box {
+                padding: 30px 20px;
+            }
+            
+            .message-text {
+                font-size: 1.2rem;
+            }
+            
+            .question-text {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+                min-width: 150px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <!-- Header -->
+    <header class="floating-header">
+        <div class="container header-content">
+            <div class="logo">Gửi người anh thương</div>
+            <nav class="nav-links">
+                <a href="#landing">Bắt đầu</a>
+                <a href="#memories">Kỷ niệm</a>
+                <a href="#message-sec">Lời nhắn</a>
+                <a href="#question">Câu hỏi</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section 1: Landing -->
+    <section id="landing">
+        <div class="container hero-content">
+            <h1 class="hero-title" data-aos="fade-down">Gửi Quế Anh 💌</h1>
+            <div class="typing-text" id="typing-text" data-aos="fade-up" data-aos-delay="300"></div>
+            <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
+                <span>Cuộn xuống để xem tiếp</span>
+                <i class="fas fa-chevron-down" style="margin-top: 10px; font-size: 1.5rem;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Memories -->
+    <section id="memories">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-right">Khoảnh khắc của chúng mình</h2>
+            <div class="memory-container">
+                <div class="photo-frame" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="ky-niem.jpg" alt="Kỷ niệm">
+                    <p class="photo-caption">"Có lẽ đây là tấm hình duy nhất anh có cơ hội chụp chung với em. Không phải là tấm hình đẹp nhất, nhưng là tấm hình đầu tiên — và với anh, nó rất đặc biệt."</p>
+                </div>
+                <div class="photo-frame" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="ky-niem.jpg" alt="Kỷ niệm 2">
+                    <p class="photo-caption">"Mỗi lần nhìn thấy em cười, trái tim anh như tan chảy. Anh mong được nhìn thấy nụ cười ấy mỗi ngày."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Message -->
+    <section id="message-sec">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Lời nhắn từ trái tim</h2>
+            <div class="message-box" data-aos="flip-up" data-aos-delay="300">
+                <p class="message-text">
+                    "Thời gian qua, anh cảm nhận rằng tụi mình đã đủ hiểu và đủ gần để bước thêm một đoạn nữa cùng nhau. <br><br>
+                    Anh không hứa điều gì quá lớn, chỉ mong được ở bên, quan tâm và trân trọng em theo cách chân thành nhất. <br><br>
+                    Mỗi ngày được trò chuyện cùng em là một ngày vui, mỗi lần nhìn thấy em cười là một lần trái tim anh rung động. <br><br>
+                    Nên… em có thể cho anh cơ hội được hẹn hò cùng em không?"
+                </p>
+                <div class="signature">- Người thích em 💕</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Question -->
+    <section id="question">
+        <div class="container question-container">
+            <div class="heart-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="question-text" data-aos="zoom-out">Em có đồng ý hẹn hò cùng anh không? ❤️</h2>
+            <div class="btn-group">
+                <button class="btn" id="yesBtn">
+                    <i class="fas fa-heart"></i> Đồng ý!
+                </button>
+                <button class="btn" id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">
+                    <i class="fas fa-clock"></i> Để suy nghĩ...
+                </button>
+            </div>
+            <p style="margin-top: 40px; color: var(--text-light); font-size: 1.1rem;" data-aos="fade-up" data-aos-delay="500">
+                (Gợi ý: Nút "Đồng ý!" sẽ mang đến điều bất ngờ 😊)
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Thiết kế với tất cả tình cảm dành cho Quế Anh</p>
+            <p>© 2023 - Mãi mãi chỉ một người thôi</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Khởi tạo AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 100
+        });
+
+        // Hiệu ứng gõ chữ
+        const typingText = document.getElementById('typing-text');
+        const messages = [
+            "Chào em, anh có một bất ngờ cho em...",
+            "Cảm ơn vì đã xuất hiện trong cuộc đời anh",
+            "Hãy dành chút thời gian để xem hết trang này nhé"
+        ];
+        let messageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function type() {
+            const currentMessage = messages[messageIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentMessage.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentMessage.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentMessage.length) {
+                isEnd = true;
+                setTimeout(() => {
+                    isDeleting = true;
+                }, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                messageIndex++;
+                if (messageIndex === messages.length) messageIndex = 0;
+            }
+            
+            const typingSpeed = isDeleting ? 50 : 100;
+            const normalSpeed = Math.random() * 150 + 50;
+            const speed = isEnd ? normalSpeed : typingSpeed;
+            
+            setTimeout(type, speed);
+        }
+
+        // Bắt đầu hiệu ứng gõ chữ
+        setTimeout(type, 1000);
+
+        // Nút "không" chạy trốn
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const btnGroup = document.querySelector('.btn-group');
+            const btnGroupRect = btnGroup.getBoundingClientRect();
+            
+            // Giới hạn di chuyển trong phạm vi btn-group
+            const maxX = btnGroupRect.width - btn.offsetWidth;
+            const maxY = btnGroupRect.height - btn.offsetHeight;
+            
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            
+            // Thêm hiệu ứng chuyển động mượt mà
+            btn.style.transition = 'left 0.5s, top 0.5s';
+        }
+
+        // Xử lý khi đồng ý
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            // Hiệu ứng confetti
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ff6b93', '#ff8eab', '#ffb3c6', '#ffe6ed']
+            });
+            
+            // Thay đổi nội dung section
+            const questionSection = document.getElementById('question');
+            questionSection.innerHTML = `
+                <div class="container question-container">
+                    <h1 style="color: #ff6b93; font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin-bottom: 30px;">
+                        Cảm ơn em đã cho anh cơ hội! 💙
+                    </h1>
+                    <p class="message-text" style="font-size: 1.5rem;">
+                        Anh sẽ trân trọng từng giây phút bên em và làm mọi điều để em hạnh phúc.
+                    </p>
+                    <div style="margin: 40px 0;">
+                        <img src="https://media.giphy.com/media/KztT2c4u8mYYUiMKdJ/giphy.gif" width="300" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    </div>
+                    <p style="font-size: 1.2rem; color: var(--text-light); margin-top: 30px;">
+                        Anh sẽ liên lạc với em sớm để lên kế hoạch cho buổi hẹn đầu tiên nhé! 💕
+                    </p>
+                </div>
+            `;
+            
+            // Thêm hiệu ứng confetti tiếp tục
+            setInterval(() => {
+                confetti({
+                    particleCount: 30,
+                    spread: 60,
+                    origin: { x: Math.random(), y: Math.random() * 0.5 },
+                    colors: ['#ff6b93', '#ff8eab']
+                });
+            }, 3000);
+        });
+
+        // Tạo trái tim bay
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'absolute';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            heart.style.transition = 'all 8s linear';
+            heart.style.zIndex = '-1';
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.top = '-10vh';
+                heart.style.transform = `translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg)`;
+            }, 100);
+
+            setTimeout(() => heart.remove(), 9000);
+        }
+
+        // Tạo trái tim mỗi 300ms
+        setInterval(createHeart, 300);
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.floating-header');
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 5px 20px var(--shadow)';
+            }
+        });
+    </script>
+</body>
+</html> 
