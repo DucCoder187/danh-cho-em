@@ -50,6 +50,27 @@
             position: relative;
         }
 
+        /* Hiệu ứng tim bay bổ sung */
+        .heart-fly {
+            position: fixed;
+            bottom: -10%;
+            pointer-events: none;
+            z-index: 1; /* Để tim bay đè lên các thành phần khác tạo chiều sâu */
+            animation: flyUp 8s linear forwards, sway 2s ease-in-out infinite;
+        }
+
+        @keyframes flyUp {
+            0% { transform: translateY(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+
+        @keyframes sway {
+            0%, 100% { margin-left: 0px; }
+            50% { margin-left: 30px; }
+        }
+
         /* Header/Navigation */
         .floating-header {
             position: fixed;
@@ -357,7 +378,7 @@
             margin-top: 20px;
         }
 
-        /* Floating Hearts */
+        /* Floating Hearts Container */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -365,7 +386,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 1001; /* Đặt trên cùng để tim bay qua mặt chữ */
         }
 
         /* Animations */
@@ -433,7 +454,6 @@
 
     <div class="floating-hearts" id="hearts-container"></div>
 
-    <!-- Header -->
     <header class="floating-header">
         <div class="container header-content">
             <div class="logo">Gửi người anh thương</div>
@@ -446,7 +466,6 @@
         </div>
     </header>
 
-    <!-- Section 1: Landing -->
     <section id="landing">
         <div class="container hero-content">
             <h1 class="hero-title" data-aos="fade-down">Gửi Quế Anh 💌</h1>
@@ -458,7 +477,6 @@
         </div>
     </section>
 
-    <!-- Section 2: Memories -->
     <section id="memories">
         <div class="container">
             <h2 class="section-title" data-aos="fade-right">Khoảnh khắc của chúng mình</h2>
@@ -475,7 +493,6 @@
         </div>
     </section>
 
-    <!-- Section 3: Message -->
     <section id="message-sec">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Lời nhắn từ trái tim</h2>
@@ -486,12 +503,11 @@
                     Mỗi ngày được trò chuyện cùng em là một ngày vui, mỗi lần nhìn thấy em cười là một lần trái tim anh rung động. <br><br>
                     Nên… em có thể cho anh cơ hội được hẹn hò cùng em không?"
                 </p>
-                <div class="signature">- Người thích em 💕</div>
+                <div class="signature">- Jet nhất tim em hihi</div>
             </div>
         </div>
     </section>
 
-    <!-- Section 4: Question -->
     <section id="question">
         <div class="container question-container">
             <div class="heart-icon">
@@ -512,11 +528,10 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>Thiết kế với tất cả tình cảm dành cho Quế Anh</p>
-            <p>© 2023 - Mãi mãi chỉ một người thôi</p>
+            <p>Gửi tặng em thêm một món quà nhỏ hi</p>
         </div>
     </footer>
 
@@ -535,8 +550,9 @@
         const typingText = document.getElementById('typing-text');
         const messages = [
             "Chào em, anh có một bất ngờ cho em...",
-            "Cảm ơn vì đã xuất hiện trong cuộc đời anh",
-            "Hãy dành chút thời gian để xem hết trang này nhé"
+            "Vì anh không giỏi nói những câu ngọt ngào",
+            "Nên...",
+            "Em hãy dành chút thời gian để xem hết trang này nha bé"
         ];
         let messageIndex = 0;
         let charIndex = 0;
@@ -558,6 +574,7 @@
                 isEnd = true;
                 setTimeout(() => {
                     isDeleting = true;
+                    isEnd = false;
                 }, 2000);
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
@@ -567,12 +584,11 @@
             
             const typingSpeed = isDeleting ? 50 : 100;
             const normalSpeed = Math.random() * 150 + 50;
-            const speed = isEnd ? normalSpeed : typingSpeed;
+            const speed = isEnd ? 2000 : (isDeleting ? typingSpeed : normalSpeed);
             
-            setTimeout(type, speed);
+            setTimeout(type, speed === 2000 ? 2000 : speed);
         }
 
-        // Bắt đầu hiệu ứng gõ chữ
         setTimeout(type, 1000);
 
         // Nút "không" chạy trốn
@@ -581,7 +597,6 @@
             const btnGroup = document.querySelector('.btn-group');
             const btnGroupRect = btnGroup.getBoundingClientRect();
             
-            // Giới hạn di chuyển trong phạm vi btn-group
             const maxX = btnGroupRect.width - btn.offsetWidth;
             const maxY = btnGroupRect.height - btn.offsetHeight;
             
@@ -591,14 +606,11 @@
             btn.style.position = 'absolute';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
-            
-            // Thêm hiệu ứng chuyển động mượt mà
             btn.style.transition = 'left 0.5s, top 0.5s';
         }
 
         // Xử lý khi đồng ý
         document.getElementById('yesBtn').addEventListener('click', function() {
-            // Hiệu ứng confetti
             confetti({
                 particleCount: 200,
                 spread: 100,
@@ -606,7 +618,6 @@
                 colors: ['#ff6b93', '#ff8eab', '#ffb3c6', '#ffe6ed']
             });
             
-            // Thay đổi nội dung section
             const questionSection = document.getElementById('question');
             questionSection.innerHTML = `
                 <div class="container question-container">
@@ -625,7 +636,6 @@
                 </div>
             `;
             
-            // Thêm hiệu ứng confetti tiếp tục
             setInterval(() => {
                 confetti({
                     particleCount: 30,
@@ -636,30 +646,41 @@
             }, 3000);
         });
 
-        // Tạo trái tim bay
+        // TẠO TRÁI TIM BAY LÊN (HÀM MỚI)
         function createHeart() {
             const container = document.getElementById('hearts-container');
             const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
+            
+            const heartIcons = ['❤️', '💖', '💘', '💗', '💓', '🌸'];
+            const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            
+            heart.innerHTML = randomIcon;
+            heart.className = 'heart-fly';
+            
+            // Vị trí ngang ngẫu nhiên
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '100vh';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            heart.style.opacity = Math.random() * 0.5 + 0.3;
-            heart.style.transition = 'all 8s linear';
-            heart.style.zIndex = '-1';
+            
+            // Kích thước ngẫu nhiên
+            const size = (Math.random() * 15 + 15) + 'px';
+            heart.style.fontSize = size;
+            
+            // Tốc độ bay ngẫu nhiên (6s - 10s)
+            const duration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDuration = `${duration}, 2s`;
+            
+            // Độ mờ ngẫu nhiên
+            heart.style.opacity = Math.random() * 0.5 + 0.4;
+            
             container.appendChild(heart);
 
+            // Xóa tim sau khi hoàn thành animation
             setTimeout(() => {
-                heart.style.top = '-10vh';
-                heart.style.transform = `translateX(${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg)`;
-            }, 100);
-
-            setTimeout(() => heart.remove(), 9000);
+                heart.remove();
+            }, 10000);
         }
 
-        // Tạo trái tim mỗi 300ms
-        setInterval(createHeart, 300);
+        // Tạo tim mỗi 400ms
+        setInterval(createHeart, 400);
 
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -674,4 +695,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
